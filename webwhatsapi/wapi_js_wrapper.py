@@ -94,7 +94,7 @@ class JsArg(object):
         :return: JS literal represented in a string
         """
         if isinstance(self.obj, string_types):
-            return repr(str(self.obj))
+            return repr(self.obj.encode('utf-8'))
 
         if isinstance(self.obj, bool):
             return str(self.obj).lower()
