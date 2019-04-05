@@ -63,8 +63,8 @@ class WapiJsWrapper(object):
             script_path = os.path.dirname(os.path.abspath(__file__))
         except NameError:
             script_path = os.getcwd()
-        with open(os.path.join(script_path, "js", "wapi.js"), "r") as script:
-            self.driver.execute_script(script.read())
+        with open(os.path.join(script_path, "js", "wapi.js"), "rb") as script:
+            self.driver.execute_script(script.read().decode('utf-8'))
 
         result = self.driver.execute_script("return window.WAPI")
         if result:
@@ -93,8 +93,8 @@ class JsArg(object):
 
         :return: JS literal represented in a string
         """
-        if isinstance(self.obj, string_types):
-            return repr(self.obj.encode('utf-8'))
+        if type(self.obj) in [str]:
+            return repr(str(self.obj))
 
         if isinstance(self.obj, bool):
             return str(self.obj).lower()
